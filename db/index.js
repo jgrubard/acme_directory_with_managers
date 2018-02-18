@@ -22,6 +22,8 @@ const seed = () => {
   ])
 }
 
+
+
 // Employee.employeeCount = () => {
 //   console.log(Employee.all())
 // }

@@ -65,8 +65,10 @@
         </li>
       </ul>
       <h2>We have
-      <span class='badge badge-primary'>{{ employees.length }}</span>
-      employees and Y managers!</h2>
+      <span class='badge badge-primary'>{{ employeeCount }}</span>
+      employees and
+      <span class='badge badge-primary'>{{ managerCount }}</span>
+      managers!</h2>
       {% block content %}
       {% endblock %}
     </body>

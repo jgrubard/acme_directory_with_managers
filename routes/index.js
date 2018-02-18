@@ -12,16 +12,16 @@ module.exports = app;
 }*/
 
 
-app.get('/', (req, res, next) => {
-  Employee.findAll()
-    .then( (employees) => {
-      res.render('employees', { title: 'Employees', employees })
-    })
-    .catch(next);
-});
+// app.get('/', (req, res, next) => {
+//   Employee.findAll()
+//     .then( (employees) => {
+//       res.render('employees', { title: 'Employees', employees })
+//     })
+//     .catch(next);
+// });
 
 
-/*
+
 
   var employees;
   var managers;
@@ -30,14 +30,10 @@ app.get('/', (req, res, next) => {
   Employee.findAll()
     .then( (_employees) => {
       employees = _employees;
-      // console.log(employees[0].get());
-      return employees.filter(function(employee) {
-        // console.log(employee.managerId)
+      console.log(employees);
+      return employees.forEach(function(employee) {
+        // console.log(employee)
 
-        if (employee.managerId in employee) {
-          console.log(employee.managerId)
-          return employee.managerId;
-        }
       })
     })
     .then()
@@ -51,7 +47,37 @@ app.get('/', (req, res, next) => {
     .catch(next);
 });
 
+
+
+
+/*  var employees;
+  var managers;
+app.get('/', (req, res, next) => {
+
+  Employee.findAll()
+    .then( (_employees) => {
+      employees = _employees;
+      // console.log(employees[0].get());
+      return employees.forEach(function(employee) {
+        console.log(employee.managerId)
+
+        if (employee.managerId) {
+
+        }
+      })
+    })
+    .then()
+    return Employee.findAll({ where: { id: this.managerId }})
+
+
+    .then( (_managers) => {
+      managers = _managers;
+      res.render('employees', { title: 'Employees', employees, managers })
+    })
+    .catch(next);
+});
 */
+
 
 
 
