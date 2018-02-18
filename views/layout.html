@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>{{ title }}</title>
+  <link rel='stylesheet' href='/public/bootstrap/dist/css/bootstrap.css'>
+  <style>
+
+  /** {*/
+    /*box-sizing: border-box;*/
+  /*}*/
+
+    /*.all-employees {*/
+      /*display: flex;*/
+      /*flex-wrap: wrap;*/
+    /*}*/
+
+    /*.employees-flex {*/
+      /*display: flex;*/
+      /*display: flex;*/
+      /*flex: 33% 33% 33%;*/
+      /*flex: wrap;*/
+      /*flex-direction: column;*/
+        /*padding: 40px;*/
+        /*text-align: center;*/
+        /*flex: 33% 33% 33%;*/
+        /*align-items: center;*/
+    }
+
+  .all-employees {
+    display: flex;
+    flex-wrap: wrap;
+    /*flex-direction: row;*/
+    flex-flow: flex-wrap;
+  }
+
+  /*.employees-flex {*/
+    /*flex: 1;*/
+    /*border:1px solid black;*/
+  /*}*/
+
+  .all-employees .employees-flex {
+    flex-basis: 33%;
+  /*display-content: row;*/
+  /*flex: auto auto auto;*/
+  /*width: calc(100% / 3);*/
+      /*flex-flow: row wrap;*/
+
+  /*align-items: flex-end;*/
+  /*outline: 1px solid black;*/
+}
+
+
+    .jumbotron {
+      padding: 10px;
+    }
+  </style>
+</head>
+  <div class='container'>
+    <body>
+      <ul class='nav nav-pills'>
+        <li class='nav-item'>
+          <a href='/' class='nav-link {% if path === "/" %}active{% endif %}'>Home</a>
+        </li>
+        <li class='nav-item'>
+          <a href='/employees' class='nav-link {% if path === "/employees" %}active{% endif %}'>Employees</a>
+        </li>
+      </ul>
+      <h2>We have
+      <span class='badge badge-primary'>{{ employees.length }}</span>
+      employees and Y managers!</h2>
+      {% block content %}
+      {% endblock %}
+    </body>
+  </div>
+</html>

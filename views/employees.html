@@ -1,0 +1,66 @@
+{% extends './layout.html' %}
+{% block content %}
+
+{{ manager }}
+
+<div class='all-employees'>
+
+  <div class='employees-flex'>
+    <div class='jumbotron'>
+      <h5>Add an Employee</h5>
+      <form method='POST'>
+        <strong>Employee Email (must be a valid Email): </strong>
+          <br/>
+        <input class='form-control' placeholder='Email' name='email' />
+          <br/>
+        <strong>Manager:</strong>
+          <br/>
+        <select class='custom-select' name='managerId'>
+          <option selected>None</option>
+          {% for employee in employees %}
+            <option value='{{employee.id}}'>{{ employee.email }}</option>
+          {% endfor %}
+        </select>
+        <button class='btn btn-primary'>Create</button>
+      </form>
+    </div>
+  </div>
+
+  {% for employee in employees %}
+
+    <div class='employees-flex'>
+
+      <strong>Email Provider:</strong> {{ employee.emailProvider }}
+      <br/>
+      <strong>Employee Name:</strong> {{ employee.name }}
+
+      <form method='POST' action='/employees/{{ employee.id }}?_method=PUT'>
+        <strong>Employee Email:</strong>
+        <br/>
+        <input class='form-control' value='{{employee.email}}' name='email'/>
+        <br/>
+        Manager Email:
+        <br/>
+        <select class='custom-select' name='managerId' placeholder='managerId'>
+          <option>None</option>
+          {% for employee in employees %}
+            <option value='{{employee.id}}'>{{ employee.email }}</option>
+          {% endfor %}
+        </select>
+        <br/>
+        <button class='btn btn-primary'>Update</button>
+      </form>
+
+      <br/>
+
+      <form method='POST' action='/employees/{{ employee.id }}?_method=DELETE'>
+        <button class='btn btn-warning'>Delete</button>
+      </form>
+
+    </div>
+
+  {% endfor %}
+
+</div>
+
+{% endblock %}
