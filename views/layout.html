@@ -14,11 +14,21 @@
           <a href='/employees' class='nav-link {% if path === "/employees" %}active{% endif %}'>Employees</a>
         </li>
       </ul>
-      <h2>We have
+      <h2>
+      We have
       <span class='badge badge-primary'>{{ employeeCount }}</span>
-      employees and
+      employee{% if employeeCount !== 1 %}s{% endif %} and
       <span class='badge badge-primary'>{{ managerCount }}</span>
-      managers!</h2>
+      manager{% if managerCount !== 1 %}s{% endif %}!
+      {% if managerCount === 0 %} {% if employeeCount === 0 %}
+        Please sign up!
+      {% endif %} {% endif %}
+      {% if employeeCount === 1 %}
+        We got one!
+      {% endif %}
+
+
+      </h2>
       {% block content %}
       {% endblock %}
     </body>
