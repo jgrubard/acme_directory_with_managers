@@ -27,6 +27,11 @@ Employee.createFromForm = function(body) {
   return this.create(body);
 }
 
-// Employee.prototype.createInstanceFromForm()
+Employee.prototype.createInstanceFromForm = function(body) {
+  if (body.managerId === '-1') {
+    body.managerId = null;
+  }
+  return body;
+}
 
 module.exports = Employee;

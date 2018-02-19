@@ -27,7 +27,7 @@ app.post('/', (req, res, next) => {
 app.put('/:id', (req, res, next) => {
   Employee.findById(req.params.id)
     .then( (employee) => {
-      Object.assign(employee, req.body);
+      Object.assign(employee, employee.createInstanceFromForm(req.body));
       return employee.save();
     })
     .then( () => {
