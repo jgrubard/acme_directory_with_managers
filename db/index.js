@@ -22,28 +22,16 @@ const seed = () => {
   ])
 }
 
-
-
-// Employee.employeeCount = () => {
-//   console.log(Employee.all())
+// Employee.prototype.getManaged = function(arr) {
+//   var nameArr = []
+//   arr.forEach(function(person){
+//     console.log(person.email)
+//     nameArr.push(person.email)
+//   })
+//   return nameArr;
 // }
 
-// Employee.findManagers = function() {
-//   return Employee.findAll({
-//     where: { id: this.managerId }
-//   })
-//   .then( (managers) => {
-//     return managers;
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   })
-  // console.log(this);
-  // this.findAll()
-  // .then((user) => {
-    // console.log(user)
-  // })
-// }
+
 
 module.exports = {
   sync,

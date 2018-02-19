@@ -41,21 +41,33 @@
         <br/>
         Manager Email:
         <br/>
-        <select class='custom-select' name='managerId' placeholder='managerId'>
+        <select class='custom-select' name='managerId'>
           <option>None</option>
-          {% for employee in employees %}
-            <option value='{{employee.id}}'>{{ employee.email }}</option>
+          {% for emp in employees %}
+            <option {% if employee.managerId === emp.id %}selected{% endif %} value='{{emp.id}}'>{{ emp.email }}</option>
           {% endfor %}
         </select>
         <br/>
         <button class='btn btn-primary'>Update</button>
       </form>
 
-      <br/>
-
       <form method='POST' action='/employees/{{ employee.id }}?_method=DELETE'>
         <button class='btn btn-warning'>Delete</button>
       </form>
+
+        {{employee.email}} manages:
+        <br/>
+
+    <!-- {{ employees[0].manages.email }} -->
+
+        <!-- {% for employee in employees %} -->
+        {% for underling in employee %}
+
+
+          <span class='badge badge-success'>{{ underling.email }}</span>
+
+          {% endfor %}
+        <!-- {% endfor %} -->
 
     </div>
 

@@ -15,64 +15,52 @@ app.use(require('method-override')('_method'));
 
 app.use('/public', express.static(path.join(__dirname, 'node_modules')));
 
-
 app.use( (req, res, next) => {
-  Employee.findAll()
-    .then( (employees) => {
-      const managers = {};
-      employees.forEach( (employee) => {
-        // console.log(employee.managerId);
-        if (employee.managerId !== null) {
-          if (!managers[employee.managerId]) {
-            managers[employee.managerId] = 1;
-          } else {
-            managers[employee.managerId]++;
-          }
+  Employee.findAll({
+    include: [{
+      model: Employee,
+      as: 'manager'
+    }, {
+      model: Employee,
+      as: 'manages'
+    }]
+  })
+  .then( (employees) => {
+
+    // console.log(employees[0].manages)
+
+
+    let managerArr = [];
+    employees.forEach(function(employee) {
+      // console.log(employee.manages)
+      if (employee.manager) {
+        if (managerArr.indexOf(employee.manager.email) === -1) {
+          managerArr.push(employee.manager.email)
         }
-        // if(managers[employee.managerId])
-        // if (employee.managerId) {
+      }
+      // console.log(employee.manages)
+      var underlings = employee.manages.map(function(e) {
+        console.log(e.email)
+        return e.email;
+      })
+      // console.log(underlings)
 
-        // }
-        // return !employee.managerId;
-          // return employee;
-        // }
-      });
+      res.locals.underlings = underlings;
 
-      // console.log(managers);
+      // console.log(res.locals.underlings);
 
-      // console.log(managersDupe)
-      // const managers = []
-      // const managers = managersDupe.filter( (manager) => {
-      //   if (manager !in managers) {
-      //     managers.push(manager)
-      //   }
-      // })
-
-      // const managers = managersDupe.filter( (manager, index, arr) => {
-      //   return index === arr.indexOf(manager);
-      // });
-
-      // let managers = Array.from(new Set(managersDupe));
-
-      // console.log(managers)
-
-
-
-      res.locals.employeeCount = employees.length;
-      res.locals.employees = employees;
-      res.locals.managerCount = Object.keys(managers).length;
-      res.locals.path = req.url;
-      next();
     })
-    .catch(next);
-
+          // console.log(res.locals.underlings);
+    res.locals.employeeCount = employees.length;
+    res.locals.managerCount = managerArr.length;
+    res.locals.path = req.url;
+    next();
+  })
+  .catch(next);
 });
 
-
-
-
-
 app.get('/', (req, res, next) => {
+  // employees[0].manages
   res.render('index', { title: 'Home' })
 })
 
@@ -87,6 +75,4 @@ app.listen(port, () => {
 db.sync()
   .then( () => {
     db.seed();
-  })
-
-
+  });
