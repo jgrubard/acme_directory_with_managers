@@ -13,6 +13,8 @@ app.engine('html', nunjucks.render);
 app.use(require('body-parser').urlencoded());
 app.use(require('method-override')('_method'));
 
+app.use('/style', express.static(path.join(__dirname, '/style')));
+
 app.use('/public', express.static(path.join(__dirname, 'node_modules')));
 
 app.use( (req, res, next) => {
