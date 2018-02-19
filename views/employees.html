@@ -1,8 +1,6 @@
 {% extends './layout.html' %}
 {% block content %}
 
-<!-- {{ managerCount }} -->
-
 <div class='all-employees'>
 
   <div class='employees-flex'>
@@ -16,7 +14,7 @@
         <strong>Manager:</strong>
           <br/>
         <select class='custom-select' name='managerId'>
-          <option selected>None</option>
+          <option value='-1'>None</option>
           {% for employee in employees %}
             <option value='{{employee.id}}'>{{ employee.email }}</option>
           {% endfor %}
@@ -42,9 +40,9 @@
         Manager Email:
         <br/>
         <select class='custom-select' name='managerId'>
-          <option>None</option>
-          {% for emp in employees %}
-            <option {% if employee.managerId === emp.id %}selected{% endif %} value='{{emp.id}}'>{{ emp.email }}</option>
+          <option value='-1'>None</option>
+          {% for manager in employees %}
+            <option {% if employee.managerId === manager.id %}selected{% endif %} value='{{manager.id}}'>{{ manager.email }}</option>
           {% endfor %}
         </select>
         <br/>
@@ -55,19 +53,13 @@
         <button class='btn btn-warning'>Delete</button>
       </form>
 
-        {{employee.email}} manages:
-        <br/>
-
-    <!-- {{ employees[0].manages.email }} -->
-
-        <!-- {% for employee in employees %} -->
-        {% for underling in employee %}
-
-
-          <span class='badge badge-success'>{{ underling.email }}</span>
-
+        {% if employee.manages.length > 0 %}
+          {{employee.email}} manages:
+          {% for underling in employee.manages %}
+            <br/>
+            <span class='badge badge-success'>{{ underling.email }}</span>
           {% endfor %}
-        <!-- {% endfor %} -->
+        {% endif %}
 
     </div>
 

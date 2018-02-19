@@ -1,7 +1,7 @@
 const { _conn } = require('./conn.js');
 const Employee = require('./Employee.js');
 
-Employee.belongsTo(Employee, { as: 'manager' });
+Employee.belongsTo(Employee, { as: 'manager', allowNull: true });
 Employee.hasMany(Employee, { as: 'manages', foreignKey: 'managerId' });
 
 const sync = () => {
@@ -21,17 +21,6 @@ const seed = () => {
     })
   ])
 }
-
-// Employee.prototype.getManaged = function(arr) {
-//   var nameArr = []
-//   arr.forEach(function(person){
-//     console.log(person.email)
-//     nameArr.push(person.email)
-//   })
-//   return nameArr;
-// }
-
-
 
 module.exports = {
   sync,

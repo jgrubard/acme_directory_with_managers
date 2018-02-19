@@ -11,18 +11,14 @@ app.get('/', (req, res, next) => {
     }
   })
     .then( (employees) => {
-      // console.log(employees[0].manages)
       res.render('employees', { title: 'Employees', employees })
     })
     .catch(next);
 });
 
 app.post('/', (req, res, next) => {
-  Employee.create(req.body)
-
+  Employee.createFromForm(req.body)
     .then( () => {
-      // console.log(employees[0].manages);
-      // console.log(res.locals.underlings)
       res.redirect('/employees')
     })
     .catch(next);
@@ -31,7 +27,6 @@ app.post('/', (req, res, next) => {
 app.put('/:id', (req, res, next) => {
   Employee.findById(req.params.id)
     .then( (employee) => {
-      // console.log(employee.manages)
       Object.assign(employee, req.body);
       return employee.save();
     })

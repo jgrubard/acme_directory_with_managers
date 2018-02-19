@@ -17,7 +17,16 @@ const Employee = _conn.define('employee', {
     emailProvider: function() {
       return this.email.slice(this.email.indexOf('@') + 1);
     }
-  }
+  },
 });
+
+Employee.createFromForm = function(body) {
+  if (body.managerId === '-1') {
+    delete body.managerId;
+  }
+  return this.create(body);
+}
+
+// Employee.prototype.createInstanceFromForm()
 
 module.exports = Employee;
